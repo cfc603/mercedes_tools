@@ -32,11 +32,15 @@ SECRET_KEY = get_secrets('SECRET_KEY')
 # Application definition
 
 INSTALLED_APPS = [
+    # django
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # local
+    'vin_charts',
 ]
 
 MIDDLEWARE = [
