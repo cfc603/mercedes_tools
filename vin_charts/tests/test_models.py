@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from model_mommy import mommy
 
+
 class ChassisModelTest(TestCase):
 
     def test_str(self):
