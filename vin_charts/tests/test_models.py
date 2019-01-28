@@ -53,3 +53,14 @@ class VehicleModelTest(TestCase):
         self.assertEqual(
             obj.__str__(), f"{obj.model_year.year} {obj.sales_designation}"
         )
+
+    def test_slug(self):
+        # setup
+        obj = mommy.make(
+            "vin_charts.Vehicle",
+            model_year=mommy.make("vin_charts.ModelYear", year=2018),
+            sales_designation="CLA250"
+        )
+
+        # asserts
+        self.assertEqual(obj.slug(), "2018-cla250")

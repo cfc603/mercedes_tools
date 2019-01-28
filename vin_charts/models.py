@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 
 class Chassis(models.Model):
@@ -44,3 +45,6 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return f"{self.model_year.year} {self.sales_designation}"
+
+    def slug(self):
+        return slugify(f"{self.model_year.year} {self.sales_designation}")
