@@ -4,10 +4,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
+        <meta name="description" content="{% block description %}{% endblock description %}">
         <meta name="author" content="https://www.trevorwatson.info/">
         <meta name="generator" content="Jekyll v3.8.5">
-        <title>Cover Template · Bootstrap</title>
+        <title>{% block title %}{% endblock title %} · Mercedes Tools</title>
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -26,32 +26,36 @@
             }
         </style>
 
-        <!-- Custom styles for this template -->
-        <link href="{% static "css/cover.css" %}" rel="stylesheet">
+        <!-- Custom styles for this t
+            emplate -->
+        <link href="{% static "css/project.css" %}" rel="stylesheet">
     </head>
-    <body class="text-center">
-        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-            <header class="masthead mb-auto">
-                <div class="inner">
-                    <h3 class="masthead-brand">Mercedes Tools</h3>
-                    <nav class="nav nav-masthead justify-content-center">
-                        {% block nav %}
-                        {% endblock nav %}
-                    </nav>
-                </div>
-            </header>
 
-            <main role="main" class="inner cover">
-                {% block content %}
-                {% endblock content %}
-            </main>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="#">Mercedes Tools</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <footer class="mastfoot mt-auto">
-                <div class="inner">
-                    <p><a href="#">Mercedes Tools</a> for parts advisors and technicians, by <a href="https://www.trevorwatson.info/" target="_blank">Trevor Watson</a>.</p>
-                </div>
-            </footer>
-        </div>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    {% block nav %}
+                    {% endblock nav %}
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="container">
+            {% block content %}
+            {% endblock content %}
+        </main><!-- /.container -->
+
+        <footer class="footer mt-auto py-3 fixed-bottom text-center">
+            <div class="container">
+                <span class="text-muted"><a href="#">Mercedes Tools</a> for parts advisors and technicians, by <a href="https://www.trevorwatson.info/" target="_blank">Trevor Watson</a>.</span>
+            </div>
+        </footer>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
