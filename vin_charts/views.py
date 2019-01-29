@@ -21,6 +21,11 @@ class VehicleList(ListView):
 
     model = Vehicle
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["year"] = self.kwargs["model_year"]
+        return context
+
     def get_queryset(self):
         queryset = super().get_queryset()
         self.model_year = get_object_or_404(
