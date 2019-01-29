@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 
 
@@ -45,6 +46,11 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return f"{self.model_year.year} {self.sales_designation}"
+
+    def get_absolute_url(self):
+        return reverse(
+            "vin_charts:vehicle_detail", args=[self.slug(), str(self.id)]
+        )
 
     def slug(self):
         return slugify(f"{self.model_year.year} {self.sales_designation}")

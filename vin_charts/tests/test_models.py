@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.test import TestCase
 
 from model_mommy import mommy
@@ -52,6 +53,18 @@ class VehicleModelTest(TestCase):
         # tests
         self.assertEqual(
             obj.__str__(), f"{obj.model_year.year} {obj.sales_designation}"
+        )
+
+    def test_get_absolute_url(self):
+        # setup
+        obj = mommy.make("vin_charts.Vehicle")
+
+        # tests
+        self.assertEqual(
+            obj.get_absolute_url(),
+            reverse(
+                "vin_charts:vehicle_detail", args=[obj.slug(), str(obj.id)]
+            )
         )
 
     def test_slug(self):
