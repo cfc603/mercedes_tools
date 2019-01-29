@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # local
+    'core',
     'vin_charts',
 ]
 
