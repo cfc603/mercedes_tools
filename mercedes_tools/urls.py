@@ -16,6 +16,6 @@ Including another URLconf
 from django.urls import include, path
 
 urlpatterns = [
-    path('', include('core.urls')),
-    path('vin-charts/', include('vin_charts.urls')),
+    path('', include(('core.urls', 'core'), namespace="core")),
+    path('vin-charts/', include(('vin_charts.urls', 'vin_charts'), namespace="vin_charts")),
 ]
