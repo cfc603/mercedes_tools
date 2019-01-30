@@ -4,4 +4,17 @@
 {% endblock nav %}
 
 {% block content %}
+    <div class="centered">
+        <h1>Mercedes Tools</h1>
+        <p><a href="{% url 'core:home' %}">Mercedes Tools</a> for parts advisors and technicians, by <a href="https://www.trevorwatson.info/" target="_blank">Trevor Watson</a>.</p>
+        <div class="col-md-3">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">VIN Charts</h5>
+                    <p class="card-text">VIN Charts from Mercedes presented in a more accessible format.</p>
+                    <a href="{% url 'vin_charts:model_year_list' %}" class="btn btn-primary btn-block">Open</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
