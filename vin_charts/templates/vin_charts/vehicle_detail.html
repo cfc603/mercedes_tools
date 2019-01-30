@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ object }}
+{% endblock title %}
+
+{% block content %}
+    <div class="centered">
+        <h1>{{ object }}</h1>
+    </div>
+    <div class="row centered">
+        <div class="col-md-6">
+            <dl>
+                <dt>VIN Prefix</dt>
+                <dd>{{ object.vin_prefix }}</dd>
+                <dt>Sales Designation</dt>
+                <dd>{{ object.sales_designation }}</dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <dl>
+                <dt>Chassis</dt>
+                <dd>{{ object.chassis }}</dd>
+                <dt>Engine</dt>
+                <dd>{{ object.engine }}</dd>
+                <dt>Transmission</dt>
+                <dd>{{ object.transmission }}</dd>
+            </dl>
+        </div>
+    </div>
+{% endblock content %}
