@@ -1,9 +1,11 @@
 from csv import DictReader
+from time import sleep
 
 from unipath import Path
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
+from django.db.utils import DataError
 
 from vin_charts.models import Chassis, Engine, ModelYear, Transmission, Vehicle
 
@@ -24,21 +26,34 @@ class Command(BaseCommand):
                 reader = DictReader(open_file)
 
                 for row in reader:
-                    chassis, created = Chassis.objects.get_or_create(
-                        number=row["chassis"]
-                    )
-                    engine, created = Engine.objects.get_or_create(
-                        number=row["engine"]
-                    )
-                    transmission, created = Transmission.objects.get_or_create(
-                        number=row["transmission"]
-                    )
-                    Vehicle.objects.update_or_create(
-                        vin_prefix=row["vin_prefix"], defaults={
-                            "model_year": model_year,
-                            "sales_designation": row["sales_designation"],
-                            "chassis": chassis,
-                            "engine": engine,
-                            "transmission": transmission,
-                        }
-                    )
+                    try:
+                        chassis, created = Chassis.objects.get_or_create(
+                            number=row["chassis"]
+                        )
+                        engine, created = Engine.objects.get_or_create(
+                            number=row["engine"]
+                        )
+                        transmission, created = Transmission.objects.get_or_create(
+                            number=row["transmission"]
+                        )
+                        vehicle, created = Vehicle.objects.update_or_create(
+                            vin_prefix=row["vin_prefix"], defaults={
+                                "model_year": model_year,
+                                "sales_designation": row["sales_designation"],
+                                "chassis": chassis,
+                                "engine": engine,
+                                "transmission": transmission,
+                            }
+                        )
+                        self.stdout.write(
+                            self.style.SUCCESS(
+                                f"{year} {vehicle.sales_designation} added!"
+                            )
+                        )
+                    except DataError:
+                        self.stdout.write(
+                            self.style.WARNING(
+                                f"Problem with importing row: {row}"
+                            )
+                        )
+                        sleep(5)
