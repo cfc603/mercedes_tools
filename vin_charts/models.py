@@ -26,6 +26,9 @@ class ModelYear(models.Model):
     def __str__(self):
         return str(self.year)
 
+    class Meta:
+        ordering = ["-year",]
+
 
 class Transmission(models.Model):
 
