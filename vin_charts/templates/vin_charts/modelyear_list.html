@@ -7,10 +7,12 @@
 {% block content %}
     <div class="centered">
         <h1>Model Years</h1>
-        {% for model_year in object_list %}
-            <div class="col-xs-3">
-                <a href="{% url 'vin_charts:vehicle_list' model_year.year %}">{{ model_year.year }}</a>
-            </div>
-        {% endfor %}
+        <div class="row">
+            {% for model_year in object_list %}
+                <div class="col-sm-2 p-2 text-center">
+                    <a href="{% url 'vin_charts:vehicle_list' model_year.year %}">{{ model_year.year }}</a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}
