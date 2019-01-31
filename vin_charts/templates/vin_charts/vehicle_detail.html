@@ -24,7 +24,11 @@
                 <dt>Engine</dt>
                 <dd>{{ object.engine }}</dd>
                 <dt>Transmission</dt>
-                <dd>{{ object.transmission }}</dd>
+                <dd>
+                    {% for transmission in object.transmissions.all %}
+                        {{ transmission }}<br>
+                    {% endfor %}
+                </dd>
             </dl>
         </div>
     </div>

@@ -33,18 +33,22 @@ class Command(BaseCommand):
                         engine, created = Engine.objects.get_or_create(
                             number=row["engine"]
                         )
-                        transmission, created = Transmission.objects.get_or_create(
-                            number=row["transmission"]
-                        )
                         vehicle, created = Vehicle.objects.update_or_create(
                             vin_prefix=row["vin_prefix"], defaults={
                                 "model_year": model_year,
                                 "sales_designation": row["sales_designation"],
                                 "chassis": chassis,
                                 "engine": engine,
-                                "transmission": transmission,
                             }
                         )
+
+                        # add transmissions
+                        for trans_number in row["transmission"].split("/"):
+                            trans, c = Transmission.objects.get_or_create(
+                                number=trans_number
+                            )
+                            vehicle.transmissions.add(trans)
+
                         self.stdout.write(
                             self.style.SUCCESS(
                                 f"{year} {vehicle.sales_designation} added!"
