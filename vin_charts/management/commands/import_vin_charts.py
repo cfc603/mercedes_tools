@@ -66,7 +66,7 @@ class Command(BaseCommand):
                             row["vin_prefix"]
                         )
                         vehicle, created = Vehicle.objects.update_or_create(
-                            vin_prefix=row["vin_prefix"], defaults={
+                            vin_prefix=vin_prefix, defaults={
                                 "model_year": model_year,
                                 "sales_designation": row["sales_designation"],
                                 "chassis": chassis,
