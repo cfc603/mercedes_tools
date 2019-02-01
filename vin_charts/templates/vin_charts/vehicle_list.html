@@ -10,7 +10,7 @@
         <div class="row">
             {% for vehicle in object_list %}
                 <div class="col-sm-3 p-2 text-center">
-                    <a href="{{ vehicle.get_absolute_url }}">{{ vehicle.sales_designation }}</a>
+                    <a class="btn btn-secondary btn-sm" href="{{ vehicle.get_absolute_url }}">{{ vehicle.sales_designation }}</a>
                 </div>
             {% endfor %}
         </div>
