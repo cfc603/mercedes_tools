@@ -32,12 +32,16 @@ SECRET_KEY = get_secrets('SECRET_KEY')
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # django
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # local
+    'core',
+    'vin_charts',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +59,7 @@ ROOT_URLCONF = 'mercedes_tools.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [Path(PROJECT_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
