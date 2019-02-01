@@ -1,7 +1,10 @@
 from django.urls import reverse
 from django.test import TestCase
 
+from mock import Mock
 from model_mommy import mommy
+
+from vin_charts.models import Note
 
 
 class ChassisModelTest(TestCase):
@@ -32,6 +35,43 @@ class ModelYearModelTest(TestCase):
 
         # tests
         self.assertEqual(obj.__str__(), str(obj.year))
+
+
+class NoteModelTest(TestCase):
+
+    def test_create_from_import_if_not_message(self):
+        # setup
+        obj = Mock()
+        Note.create_from_import(obj, None)
+
+        # asserts
+        obj.notes.all.assert_not_called()
+        obj.notes.add.assert_not_called()
+
+    def test_create_from_import_if_previously_created(self):
+        # setup
+        notes = Mock()
+        notes.all.return_value = [Mock(message="message")]
+        obj = Mock(notes=notes)
+        Note.create_from_import(obj, "message")
+
+        # asserts
+        obj.notes.all.assert_called_once()
+        self.assertFalse(Note.objects.exists())
+        obj.notes.add.assert_not_called()
+
+    def test_create_from_import_if_not_previously_created(self):
+        # setup
+        notes = Mock()
+        notes.all.return_value = [Mock(message="message")]
+        obj = Mock(notes=notes)
+        note = Note.create_from_import(obj, "new message")
+
+        # asserts
+        obj.notes.all.assert_called_once()
+        self.assertEqual(Note.objects.all().count(), 1)
+        self.assertEqual(note.message, "new message")
+        obj.notes.add.assert_called_once_with(note)
 
 
 class TransmissionModelTest(TestCase):

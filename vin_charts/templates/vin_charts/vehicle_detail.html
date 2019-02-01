@@ -12,7 +12,9 @@
         <div class="col-md-6">
             <dl>
                 <dt>VIN Prefix</dt>
-                <dd>{{ object.vin_prefix }}</dd>
+                <dd>
+                    {{ object.vin_prefix }} {% include "vin_charts/_notes_modal.html" with id="VINPrefix" title="Vehicle Notes" obj=object %}
+                </dd>
                 <dt>Sales Designation</dt>
                 <dd>{{ object.sales_designation }}</dd>
             </dl>
@@ -20,13 +22,19 @@
         <div class="col-md-6">
             <dl>
                 <dt>Chassis</dt>
-                <dd>{{ object.chassis }}</dd>
+                <dd>
+                    {{ object.chassis }}
+                    {% include "vin_charts/_notes_modal.html" with id="Chassis" title="Chassis Notes" obj=object.chassis %}
+                </dd>
                 <dt>Engine</dt>
-                <dd>{{ object.engine }}</dd>
+                <dd>
+                    {{ object.engine }}
+                    {% include "vin_charts/_notes_modal.html" with id="Engine" title="Engine Notes" obj=object.engine %}
+                </dd>
                 <dt>Transmission</dt>
                 <dd>
                     {% for transmission in object.transmissions.all %}
-                        {{ transmission }}<br>
+                        {{ transmission }}{% include "vin_charts/_notes_modal.html" with id="Transmission" title="Transmission Notes" obj=transmission %}<br>
                     {% endfor %}
                 </dd>
             </dl>

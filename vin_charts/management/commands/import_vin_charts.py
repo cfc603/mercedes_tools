@@ -7,10 +7,26 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from django.db.utils import DataError
 
-from vin_charts.models import Chassis, Engine, ModelYear, Transmission, Vehicle
+from vin_charts.models import (
+    Chassis,
+    Engine,
+    ModelYear,
+    Note,
+    Transmission,
+    Vehicle
+)
 
 
 VIN_CHART_DIR = Path(settings.BASE_DIR.parent, "data/vin_charts")
+
+
+def split_note_from_value(data):
+    start = data.find("(")
+    if start >= 0:
+        value = data[:start]
+        message = data[start+1:-1]
+        return value, message
+    return data, None
 
 
 class Command(BaseCommand):
@@ -27,11 +43,27 @@ class Command(BaseCommand):
 
                 for row in reader:
                     try:
+                        # get Chassis
+                        chassis_number, chassis_note = split_note_from_value(
+                            row["chassis"]
+                        )
                         chassis, created = Chassis.objects.get_or_create(
-                            number=row["chassis"]
+                            number=chassis_number
+                        )
+                        Note.create_from_import(chassis, chassis_note)
+
+                        # get Engine
+                        engine_number, engine_note = split_note_from_value(
+                            row["engine"]
                         )
                         engine, created = Engine.objects.get_or_create(
-                            number=row["engine"]
+                            number=engine_number
+                        )
+                        Note.create_from_import(engine, engine_note)
+
+                        # get Vehicle
+                        vin_prefix, vehicle_note = split_note_from_value(
+                            row["vin_prefix"]
                         )
                         vehicle, created = Vehicle.objects.update_or_create(
                             vin_prefix=row["vin_prefix"], defaults={
@@ -41,13 +73,18 @@ class Command(BaseCommand):
                                 "engine": engine,
                             }
                         )
+                        Note.create_from_import(vehicle, vehicle_note)
 
                         # add transmissions
                         for trans_number in row["transmission"].split("/"):
+                            trans_number, trans_note = split_note_from_value(
+                                trans_number
+                            )
                             trans, c = Transmission.objects.get_or_create(
                                 number=trans_number
                             )
                             vehicle.transmissions.add(trans)
+                            Note.create_from_import(trans, trans_note)
 
                         self.stdout.write(
                             self.style.SUCCESS(
