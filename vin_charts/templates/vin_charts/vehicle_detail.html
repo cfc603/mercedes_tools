@@ -23,18 +23,18 @@
             <dl>
                 <dt>Chassis</dt>
                 <dd>
-                    {{ object.chassis }}
+                    <a href="{{ object.chassis.get_absolute_url }}">{{ object.chassis }}</a>
                     {% include "vin_charts/_notes_modal.html" with id="Chassis" title="Chassis Notes" obj=object.chassis %}
                 </dd>
                 <dt>Engine</dt>
                 <dd>
-                    {{ object.engine }}
+                    <a href="{{ object.engine.get_absolute_url }}">{{ object.engine }}</a>
                     {% include "vin_charts/_notes_modal.html" with id="Engine" title="Engine Notes" obj=object.engine %}
                 </dd>
                 <dt>Transmission</dt>
                 <dd>
                     {% for transmission in object.transmissions.all %}
-                        {{ transmission }}{% include "vin_charts/_notes_modal.html" with id="Transmission" title="Transmission Notes" obj=transmission %}<br>
+                        <a href="{{ transmission.get_absolute_url }}">{{ transmission }}</a>{% include "vin_charts/_notes_modal.html" with id="Transmission" title="Transmission Notes" obj=transmission %}<br>
                     {% endfor %}
                 </dd>
             </dl>

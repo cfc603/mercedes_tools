@@ -1,12 +1,33 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
 
-from vin_charts.models import ModelYear, Vehicle
+from vin_charts.models import (
+    Chassis,
+    Engine,
+    ModelYear,
+    Transmission,
+    Vehicle
+)
+
+
+class ChassisDetail(DetailView):
+
+    model = Chassis
+
+
+class EngineDetail(DetailView):
+
+    model = Engine
 
 
 class ModelYearList(ListView):
 
     model = ModelYear
+
+
+class TransmissionDetail(DetailView):
+
+    model = Transmission
 
 
 class VehicleDetail(DetailView):

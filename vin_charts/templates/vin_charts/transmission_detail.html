@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ object }} Transmission
+{% endblock title %}
+
+{% block content %}
+    <div class="centered">
+        <h1>{{ object }} Transmission</h1>
+    </div>
+    <div class="row centered">
+        <div class="col-md-6">
+            <dl>
+                <dt>Notes</dt>
+                <dd>
+                    {% if object.notes.all.exists %}
+                        {% for note in object.notes.all %}
+                            {{ note.message }}<br>
+                        {% endfor %}
+                    {% else %}
+                        No Notes
+                    {% endif %}
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <dl>
+                <dt>Vehicles</dt>
+                <dd>
+                    {% for vehicle in object.vehicle_set.all %}
+                        <a href="{{ vehicle.get_absolute_url }}">{{ vehicle }}</a><br>
+                    {% endfor %}
+                </dd>
+            </dl>
+        </div>
+    </div>
+{% endblock content %}

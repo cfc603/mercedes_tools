@@ -16,6 +16,25 @@ class ChassisModelTest(TestCase):
         # tests
         self.assertEqual(obj.__str__(), obj.number)
 
+    def test_get_absolute_url(self):
+        # setup
+        obj = mommy.make("vin_charts.Chassis")
+
+        # tests
+        self.assertEqual(
+            obj.get_absolute_url(),
+            reverse(
+                "vin_charts:chassis_detail", args=[obj.slug(), str(obj.id)]
+            )
+        )
+
+    def test_slug(self):
+        # setup
+        obj = mommy.make("vin_charts.Chassis", number="123.123")
+
+        # asserts
+        self.assertEqual(obj.slug(), "123123")
+
 
 class EngineModelTest(TestCase):
 
@@ -25,6 +44,25 @@ class EngineModelTest(TestCase):
 
         # tests
         self.assertEqual(obj.__str__(), obj.number)
+
+    def test_get_absolute_url(self):
+        # setup
+        obj = mommy.make("vin_charts.Engine")
+
+        # tests
+        self.assertEqual(
+            obj.get_absolute_url(),
+            reverse(
+                "vin_charts:engine_detail", args=[obj.slug(), str(obj.id)]
+            )
+        )
+
+    def test_slug(self):
+        # setup
+        obj = mommy.make("vin_charts.Engine", number="123.123")
+
+        # asserts
+        self.assertEqual(obj.slug(), "123123")
 
 
 class ModelYearModelTest(TestCase):
@@ -82,6 +120,26 @@ class TransmissionModelTest(TestCase):
 
         # tests
         self.assertEqual(obj.__str__(), obj.number)
+
+    def test_get_absolute_url(self):
+        # setup
+        obj = mommy.make("vin_charts.Transmission")
+
+        # tests
+        self.assertEqual(
+            obj.get_absolute_url(),
+            reverse(
+                "vin_charts:transmission_detail",
+                args=[obj.slug(), str(obj.id)]
+            )
+        )
+
+    def test_slug(self):
+        # setup
+        obj = mommy.make("vin_charts.Transmission", number="123.123")
+
+        # asserts
+        self.assertEqual(obj.slug(), "123123")
 
 
 class VehicleModelTest(TestCase):

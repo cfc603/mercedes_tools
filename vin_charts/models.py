@@ -11,6 +11,14 @@ class Chassis(models.Model):
     def __str__(self):
         return self.number
 
+    def get_absolute_url(self):
+        return reverse(
+            "vin_charts:chassis_detail", args=[self.slug(), str(self.id)]
+        )
+
+    def slug(self):
+        return slugify(self.number)
+
 
 class Engine(models.Model):
 
@@ -19,6 +27,14 @@ class Engine(models.Model):
 
     def __str__(self):
         return self.number
+
+    def get_absolute_url(self):
+        return reverse(
+            "vin_charts:engine_detail", args=[self.slug(), str(self.id)]
+        )
+
+    def slug(self):
+        return slugify(self.number)
 
 
 class ModelYear(models.Model):
@@ -58,6 +74,14 @@ class Transmission(models.Model):
 
     def __str__(self):
         return self.number
+
+    def get_absolute_url(self):
+        return reverse(
+            "vin_charts:transmission_detail", args=[self.slug(), str(self.id)]
+        )
+
+    def slug(self):
+        return slugify(self.number)
 
 
 class Vehicle(models.Model):
