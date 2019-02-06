@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # local
     'core',
+    'parts',
     'vin_charts',
 ]
 

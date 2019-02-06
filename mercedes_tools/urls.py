@@ -17,5 +17,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path('', include(('core.urls', 'core'), namespace="core")),
+    path('parts/', include(('parts.urls', 'parts'), namespace="parts")),
     path('vin-charts/', include(('vin_charts.urls', 'vin_charts'), namespace="vin_charts")),
 ]
