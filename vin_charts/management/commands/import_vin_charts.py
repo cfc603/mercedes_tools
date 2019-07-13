@@ -65,10 +65,18 @@ class Command(BaseCommand):
                         vin_prefix, vehicle_note = split_note_from_value(
                             row["vin_prefix"]
                         )
+
+                        # format sales_designation
+                        sales_designation = row["sales_designation"]
+                        if "AMG" == sales_designation[:3]:
+                            sales_designation = sales_designation[3:]
+                            sales_designation = f"{sales_designation} AMG"
+                        sales_designation = sales_designation.strip()
+
                         vehicle, created = Vehicle.objects.update_or_create(
                             vin_prefix=vin_prefix, defaults={
                                 "model_year": model_year,
-                                "sales_designation": row["sales_designation"],
+                                "sales_designation": sales_designation,
                                 "chassis": chassis,
                                 "engine": engine,
                             }

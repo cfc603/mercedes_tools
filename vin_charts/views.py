@@ -41,6 +41,7 @@ class VehicleDetail(DetailView):
 class VehicleList(ListView):
 
     model = Vehicle
+    ordering = ["sales_designation"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
